@@ -1,0 +1,25 @@
+img {
+    size: cover;
+    width: 20%;
+    height: 200px;
+    margin: calc(20%/8);
+
+}
+
+h3 {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-weight: 400;
+    text-align: center;
+    width: 200px;
+    margin: auto;
+    background-color: plum;
+    color: navy;
+}
+
+nav {
+    text-transform: uppercase;
+    border-bottom: 2px solid #f1f1f1;
+    width: 20%;
+    margin-left: calc(20%/8);
+    padding: 20px;
+}
