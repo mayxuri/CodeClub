@@ -1,0 +1,20 @@
+section {
+    width: 80%;
+    height: 800px;
+    /* background-color: purple; */
+    background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQeJY6BwQrcWLBcfVmDGXOidN16hn30g04xvQ&usqp=CAU");
+    margin: 0 auto;
+    background-size: cover;
+}
+
+h1 {
+    font-size: 100px;
+    color: white;
+}
+
+/* background image properties:
+background image position
+background image size
+background image repeat 
+background attachment 
+background clip*/
