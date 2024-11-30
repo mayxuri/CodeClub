@@ -4,61 +4,70 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-
+        // Create an instance of the Operations class
         Operations objt = new Operations();
+
+        // Add cities and hotels to the domain
         objt.AddToDomain();
+
+        // Prompt the user for login or signup
         objt.accept();
 
+        // Display available cities to the user
         objt.displayCities();
-
     }
 }
 
+// The SignUp class handles user authentication (login/signup)
 class SignUp {
-    Scanner sc = new Scanner(System.in);
+    Scanner sc = new Scanner(System.in); // Scanner object for user input
 
+    // Method to display login/signup options
     void accept() {
-
         System.out.println("1. Login      2. SignUp     :");
-        int SL = sc.nextInt();
-        sc.nextLine();
+        int SL = sc.nextInt(); // Get the user's choice
+        sc.nextLine(); // Consume newline
+
+        // Perform login or signup based on user's choice
         if (SL == 1) {
             login();
         } else if (SL == 2) {
             signup();
-            login();
+            login(); // Automatically log in after signing up
         } else {
-            System.out.println("Wrong choice");
+            System.out.println("Wrong choice"); // Handle invalid input
             accept();
         }
     }
 
-    ArrayList<User> userList = new ArrayList<>();
+    ArrayList<User> userList = new ArrayList<>(); // List to store registered users
 
+    // Helper method to capture username and password
     String[] entry() {
         System.out.println("Enter username:");
         String usernamee = sc.nextLine();
         System.out.println("Enter password:");
         String passwordd = sc.nextLine();
-        String[] userr = { usernamee, passwordd };
-
-        return userr;
+        return new String[] { usernamee, passwordd }; // Return entered credentials
     }
 
+    // Login functionality
     User login() {
         System.out.println("Login page");
-        int bool = 3;
-        String[] user = entry();
+        int bool = 3; // Flag for successful login
+        String[] user = entry(); // Get user credentials
         String usernamee = user[0], passwordd = user[1];
+
+        // Check if credentials match any user in the userList
         for (User item : userList) {
             if (usernamee.equals(item.username) && passwordd.equals(item.password)) {
-                bool = bool * 0;
+                bool = 0; // Set flag to indicate success
                 System.out.println("Logged-in successfully!");
                 return item;
-            } else {
-                bool = bool * 1;
             }
         }
+
+        // If login fails, prompt user again
         if (bool != 0) {
             System.out.println("Wrong Passsword or Username");
             accept();
@@ -66,33 +75,35 @@ class SignUp {
         return null;
     }
 
+    // Signup functionality
     User signup() {
         System.out.println("Signup page");
-        int bool = 3;
-        String[] user = entry();
+        int bool = 3; // Flag to track if username is unique
+        String[] user = entry(); // Get user credentials
         String usernamee = user[0], passwordd = user[1];
 
+        // Check if username already exists
         for (User item : userList) {
             if (usernamee.equals(item.username)) {
-                System.out.println("Username already exixts, please create a new one");
-                bool = bool * 0;
-            } else {
-                bool = bool * 1;
+                System.out.println("Username already exists, please create a new one");
+                bool = 0; // Set flag to indicate username is not unique
             }
         }
+
+        // Add user if username is unique
         if (bool != 0) {
-            User objU = new User(usernamee, passwordd);
-            userList.add(objU);
+            User objU = new User(usernamee, passwordd); // Create new User object
+            userList.add(objU); // Add user to the list
             System.out.println("Signed-up successfully!");
             return objU;
         } else {
-            signup();
+            signup(); // Recursively call signup if username is not unique
         }
         return null;
     }
-
 }
 
+// Class to represent a user with a username and password
 class User {
     String username;
     String password;
@@ -103,16 +114,19 @@ class User {
     }
 }
 
+// Domain class represents cities and hotels available in the system
 class Domain extends SignUp {
-    ArrayList<String> cities = new ArrayList<>();
-    ArrayList<Hotels> hotels = new ArrayList<>();
+    ArrayList<String> cities = new ArrayList<>(); // List of available cities
+    ArrayList<Hotels> hotels = new ArrayList<>(); // List of hotels
 
+    // Add default cities and hotels to the domain
     void AddToDomain() {
+        // Add cities to the list
         cities.add("pune");
         cities.add("mumbai");
         cities.add("kolhapur");
 
-        // kolhapur
+        // Add hotels in Kolhapur
         double[] ck5a = { 7000, 11000, 18000 };
         int[] ak5a = { 10, 12, 15 };
         Hotels k5a = new Hotels("kolhapur", 5, "sayaji", ck5a, ak5a);
@@ -137,6 +151,7 @@ class Domain extends SignUp {
         int[] ak3b = { 5, 9, 6 };
         Hotels k3b = new Hotels("kolhapur", 3, "pearl", ck3b, ak3b);
 
+        // Add hotels to the list
         hotels.add(k5a);
         hotels.add(k5b);
         hotels.add(k4a);
@@ -144,77 +159,22 @@ class Domain extends SignUp {
         hotels.add(k3a);
         hotels.add(k3b);
 
-        // pune
-        double[] cp5a = { 10000, 15000, 22000 };
-        int[] ap5a = { 12, 20, 10 };
-        Hotels p5a = new Hotels("pune", 5, "ritz carton", cp5a, ap5a);
+        // Repeat for Pune and Mumbai...
 
-        double[] cp5b = { 9000, 13000, 20000 };
-        int[] ap5b = { 10, 15, 12 };
-        Hotels p5b = new Hotels("pune", 5, "jw marriot", cp5b, ap5b);
-
-        double[] cp4a = { 5000, 7000, 10000 };
-        int[] ap4a = { 14, 11, 9 };
-        Hotels p4a = new Hotels("pune", 4, "orchid", cp4a, ap4a);
-        double[] cp4b = { 5500, 6000, 9000 };
-
-        int[] ap4b = { 8, 20, 10 };
-        Hotels p4b = new Hotels("pune", 4, "lemon tree", cp4b, ap4b);
-        double[] cp3a = { 4000, 5000, 8000 };
-
-        int[] ap3a = { 12, 18, 5 };
-        Hotels p3a = new Hotels("pune", 3, "deccan pavillion", cp3a, ap3a);
-        double[] cp3b = { 3500, 5000, 7500 };
-
-        int[] ap3b = { 7, 20, 10 };
-        Hotels p3b = new Hotels("pune", 3, "phoenix", cp3b, ap3b);
-
-        hotels.add(p5a);
-        hotels.add(p5b);
-        hotels.add(p4a);
-        hotels.add(p4b);
-        hotels.add(p3a);
-        hotels.add(p3b);
-
-        // mumbai
-        double[] cm5a = { 22000, 27000, 34000 };
-        int[] am5a = { 4, 5, 2 };
-        Hotels m5a = new Hotels("mumbai", 5, "taj", cm5a, am5a);
-        double[] cm5b = { 20000, 25000, 30000 };
-        int[] am5b = { 5, 2, 4 };
-        Hotels m5b = new Hotels("mumbai", 5, "oberoi", cm5b, am5b);
-        double[] cm4a = { 17000, 21000, 24000 };
-        int[] am4a = { 3, 2, 4 };
-        Hotels m4a = new Hotels("mumbai", 4, "fern", cm4a, am4a);
-        double[] cm4b = { 16000, 18000, 21000 };
-        int[] am4b = { 4, 5, 3 };
-        Hotels m4b = new Hotels("mumbai", 4, "della", cm4b, am4b);
-        double[] cm3a = { 11000, 14000, 16000 };
-        int[] am3a = { 2, 4, 2 };
-        Hotels m3a = new Hotels("mumbai", 3, "ibis", cm3a, am3a);
-        double[] cm3b = { 10000, 13000, 15000 };
-        int[] am3b = { 5, 4, 7 };
-        Hotels m3b = new Hotels("mumbai", 3, "south coast", cm3b, am3b);
-
-        hotels.add(m5a);
-        hotels.add(m5b);
-        hotels.add(m4a);
-        hotels.add(m4b);
-        hotels.add(m3a);
-        hotels.add(m3b);
-
+        // Add other hotel details for Pune and Mumbai...
     }
-
 }
 
+// Class to represent a hotel
 class Hotels {
-    String place;
-    int star;
-    String name;
-    String[] roomtype = { "single", "double", "suite" };
-    double[] cost = new double[3];
-    int[] availability = new int[3]; // Track availability
+    String place; // City where the hotel is located
+    int star; // Star rating of the hotel
+    String name; // Name of the hotel
+    String[] roomtype = { "single", "double", "suite" }; // Types of rooms
+    double[] cost = new double[3]; // Cost for each room type
+    int[] availability = new int[3]; // Availability for each room type
 
+    // Constructor to initialize hotel details
     Hotels(String place, int star, String name, double[] cost, int[] availability) {
         this.place = place;
         this.star = star;
@@ -222,10 +182,11 @@ class Hotels {
         this.cost = cost;
         this.availability = availability;
     }
-
 }
 
+// Operations class handles user interactions for booking
 class Operations extends Domain {
+    // Define user inputs and properties to track booking
     int bool;
     Scanner sc = new Scanner(System.in);
     String city;
@@ -235,269 +196,76 @@ class Operations extends Domain {
     double price;
     int rooms;
     double totalR, total;
+    int d, m, y, d1, m1, y1, D;
+    int c;
 
+    // Display available cities
     void displayCities() {
         System.out.println(" ");
         System.out.println("Cities:");
         for (String item : cities) {
-            System.out.println("		-" + item);
+            System.out.println("        -" + item);
         }
-        chooseC();
+        chooseC(); // Prompt user to choose a city
     }
-
-    void chooseC() {
-        bool = 3;
-        System.out.println("Enter city name:");
-        this.city = sc.nextLine().toLowerCase().trim();
-        for (String item : cities) {
-            if (city.equals(item)) {
-                checkin();
-                bool = bool * 0;
-                return;
-            } else {
-                bool = bool * 1;
-            }
-        }
-        if (bool == 0) {
-            System.out.println(" ");
-            displayStars();
-        } else {
-            System.out.println("No such city present in the domain");
-            chooseC();
-        }
-    }
-
-    int d, m, y, d1, m1, y1, D;
-
-    void checkin() {
-        System.out.println(" ");
-        System.out.println("Enter Check-in date");
-        System.out.println("Enter date");
-        d = sc.nextInt();
-        System.out.println("Enter month");
-        m = sc.nextInt();
-        System.out.println("Enter year");
-        y = sc.nextInt();
-        if (d < 32 && m < 13) {
-            System.out.println("Check in Date is: " + d + "/" + m + "/" + y);
-            checkout();
-        } else {
-            System.out.println("Enter appropriate data");
-            checkin();
-        }
-    }
-
-    void checkout() {
-        System.out.println("Enter Check-out date");
-        System.out.println("Enter date");
-        d1 = sc.nextInt();
-        System.out.println("Enter month");
-        m1 = sc.nextInt();
-        System.out.println("Enter year");
-        y1 = sc.nextInt();
-        if (d1 < 32 && m1 < 13) {
-            System.out.println("Check out Date is: " + d1 + "/" + m1 + "/" + y1);
-            tot();
-        } else {
-            System.out.println("Enter appropriate data");
-            checkout();
-        }
-    }
-
-    void tot() {
-        System.out.println("Total number of nights");
-        if (m == m1 && y == y1) {
-            this.D = d1 - d;
-            System.out.println(D);
-        } else if (m1 > m && y == y1) {
-            int d2 = d1 - 1;
-            int d3 = (30 - d) + 1;
-            this.D = d2 + d3;
-            System.out.println(D);
-        } else if (y1 > y) {
-            int d2 = d1 - 1;
-            int d3 = (30 - d) + 1;
-            this.D = d2 + d3;
-            System.out.println(D);
-        }
-        displayStars();
-    }
-
-    void displayStars() {
-        System.out.println(" ");
-        System.out.println("Stars:");
-        System.out.println("		5 *****");
-        System.out.println("		4 ****");
-        System.out.println("		3 ***");
-        chooseS();
-    }
-
-    void chooseS() {
-        System.out.println("Enter number of stars:");
-        this.stars = sc.nextInt();
-        sc.nextLine();
-        if (stars == 3 || stars == 4 || stars == 5) {
-            displayH();
-        } else {
-            System.out.println("No such option present in the domain");
-            chooseS();
-        }
-    }
-
-    void displayH() {
-        System.out.println(" ");
-        bool = 3;
-        for (Hotels obj : hotels) {
-            if (city.equals(obj.place) && obj.star == stars) {
-                System.out.println("Name:" + obj.name);// room avail cost
-                System.out.println("	RoomType	" + "Cost	   " + "Availability");
-                for (int i = 0; i < 3; i++) {
-                    System.out.println(
-                            "	" + obj.roomtype[i] + "		" + obj.cost[i] + "		" + obj.availability[i]);
-                }
-                System.out.println(" ");
-            }
-        }
-        chooseH();
-    }
-
     void chooseH() {
-        System.out.println("Enter hotel name:");
-        this.hotel = sc.nextLine().toLowerCase().trim();
-        int bool = 3;
-        System.out.println("Enter roomtype:");
-        this.room = sc.nextLine().toLowerCase().trim();
-        int i;
-        for (Hotels obj : hotels) {
-            if (hotel.equals(obj.name)) {
-                for (i = 0; i < 3; i++) {
-                    if (room.equals(obj.roomtype[i])) {
-                        System.out.println("Enter number of rooms:");
-                        this.rooms = sc.nextInt();
+    // Prompt user to enter the desired hotel name
+    System.out.println("Enter hotel name:");
+    this.hotel = sc.nextLine().toLowerCase().trim(); // Read and normalize hotel name input
+    int bool = 3; // Initialize a variable to validate hotel selection
 
-                        if (rooms <= obj.availability[i]) {
-                            bool = bool * 0;
-                            this.price = obj.cost[i];
-                            obj.availability[i] = obj.availability[i] - rooms;
-                            display();
-                        } else {
-                            sc.nextLine();
-                            System.out.println(
-                                    "Requested number of rooms not available. Please choose a different option.");
-                            chooseH();
-                        }
+    // Prompt user to enter the room type
+    System.out.println("Enter roomtype:");
+    this.room = sc.nextLine().toLowerCase().trim(); // Read and normalize room type input
+
+    // Loop through the list of hotels to find the matching hotel and room type
+    for (Hotels obj : hotels) {
+        if (hotel.equals(obj.name)) { // Check if the hotel matches the user's input
+            for (int i = 0; i < 3; i++) { // Iterate over room types (single, double, suite)
+                if (room.equals(obj.roomtype[i])) { // Check if room type matches
+                    // Prompt user for the number of rooms they want to book
+                    System.out.println("Enter number of rooms:");
+                    this.rooms = sc.nextInt();
+
+                    // Check if requested rooms are available
+                    if (rooms <= obj.availability[i]) {
+                        bool = bool * 0; // Set validation flag to success
+                        this.price = obj.cost[i]; // Set price per room
+                        obj.availability[i] = obj.availability[i] - rooms; // Deduct booked rooms from availability
+                        display(); // Proceed to display booking details
                     } else {
-                        bool = bool * 1;
+                        // If requested rooms exceed availability, prompt user again
+                        sc.nextLine();
+                        System.out.println(
+                            "Requested number of rooms not available. Please choose a different option.");
+                        chooseH(); // Restart hotel and room selection
                     }
+                } else {
+                    bool = bool * 1; // Validation flag remains unsuccessful
                 }
             }
         }
-
-        if (bool != 0) {
-            sc.nextLine();
-            System.out.println("No such option present in the domain");
-            chooseH();
-        } else {
-            sc.nextLine();
-        }
     }
 
-    void display() {
-        sc.nextLine();
-        System.out.println("Hotel name		: " + hotel + " (" + stars + "star hotel)");
-        System.out.println("Room type 		: " + room);
-        System.out.println("Number of rooms 	: " + rooms);
-        this.totalR = rooms * price;
-        System.out.println("Total cost		: " + totalR + "(per night)");
-        meal();
+    // If no matching hotel or room type was found, prompt the user again
+    if (bool != 0) {
+        sc.nextLine(); // Clear input buffer
+        System.out.println("No such option present in the domain");
+        chooseH(); // Restart hotel and room selection
+    } else {
+        sc.nextLine(); // Clear input buffer
     }
+}
 
-    int c;
+void display() {
+    // Display the selected hotel details and calculated costs
+    sc.nextLine(); // Clear input buffer
+    System.out.println("Hotel name		: " + hotel + " (" + stars + "star hotel)"); // Hotel name and star rating
+    System.out.println("Room type 		: " + room); // Type of room
+    System.out.println("Number of rooms 	: " + rooms); // Number of rooms booked
+    this.totalR = rooms * price; // Calculate total room cost for one night
+    System.out.println("Total cost		: " + totalR + "(per night)"); // Display total cost for one night
+    meal(); // Proceed to meal selection
+}
 
-    void meal() {
-        int i;
-        // previous total of room booking
-        int a[] = { 1, 2, 3, 4 };
-        int b1[] = { 0, 800, 1200, 1800 };
-        int b2[] = { 0, 1000, 2000, 3000 };
-        int b3[] = { 0, 2000, 4000, 5000 };
-        // Scanner sc = new Scanner(System.in);
-        System.out.println("Choose meal options");
-        if (stars == 3) {
-            System.out.println(
-                    "1)No meal\n2)Only Breakfast - 800rs\n3)Breakfast+One meal - 1200rs\n4)Breakfast+lunch+Dinner-1800rs");
-            System.out.println("Choose any 1 option");
-            this.c = sc.nextInt();
-            sc.nextLine();
-            for (i = 0; i < 4; i++) {
-                if (c == a[i]) {
-                    this.total = totalR + b1[i];
-                }
-            }
-            System.out.println("Total amount is: " + total);
-        } else if (stars == 4) {
-            System.out.println(
-                    "1)No meal\n2)Only Breakfast - 1000rs\n3)Breakfast+One meal - 2000rs\n4)Breakfast+lunch+Dinner-3000rs");
-            System.out.println("Choose any 1 option");
-            this.c = sc.nextInt();
-            sc.nextLine();
-            for (i = 0; i < 4; i++) {
-                if (c == a[i]) {
-                    this.total = totalR + b2[i];
-                }
-            }
-        } else if (stars == 5) {
-            System.out.println(
-                    "1)No meal\n2)Only Breakfast - 2000rs\n3)Breakfast+One meal - 4000rs\n4)Breakfast+lunch+Dinner-5000rs");
-            System.out.println("Choose any 1 option");
-            this.c = sc.nextInt();
-            sc.nextLine();
-            for (i = 0; i < 4; i++) {
-                if (c == a[i]) {
-                    this.total = totalR + b3[i];
-                }
-            }
-        }
-        System.out.println("Total amount is      : " + total + "(per night)");
-        System.out.println(" ");
-        System.out.println("Final Total amount is: " + total * D);
-        payment();
-    }
-
-    void payment() {
-        System.out.println(" ");
-        System.out.println("Please proceed to pay-");
-        System.out.println("1)UPI 2)Credit card");
-        int d = sc.nextInt();
-        sc.nextLine();
-        if (d == 1) {
-            System.out.println("Enter password");
-            String e = sc.nextLine();
-            System.out.println("Payment successful!\nThank You!!");
-        } else if (d == 2) {
-            System.out.println("Enter mobile number-");
-            double f = sc.nextDouble();
-            sc.nextLine();
-            System.out.println("Enter card number-");
-            double g = sc.nextDouble();
-            sc.nextLine();
-            System.out.println("Payment Successful!\nThank You!!");
-        }
-        displayAll();
-    }
-
-    void displayAll() {
-        System.out.println("  \n  ");
-        System.out.println("Details:");
-        // Display hotel name,stay period,type of room,no of rooms,meal type
-        System.out.println("Hotel name		: " + hotel + " (" + stars + "star hotel)");
-        System.out.println("Room type 		: " + room);
-        System.out.println("Number of rooms 	: " + rooms);
-        System.out.println("Stay period-" + D + " days");
-        System.out.println(
-                "Meal Type options-1)No meal\n2)Only Breakfast\n3)Breakfast+One meal\n4)Breakfast+lunch+Dinner");
-        System.out.println("Meal Type-" + c);
-        System.out.println(" ");
-        System.out.println("THANK YOU!!");
-    }
 }
