@@ -1,4 +1,4 @@
-Welcometomyrepository
+#Welcometomyrepository
 
 JARV: A chatbot 
       USED gptmini4o api because i have not worked with backend yet competely
