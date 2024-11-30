@@ -53,7 +53,7 @@
 
 
 
-//Below code is connected to API. used gpt to connect api
+//Below code is connected to API. 
 
 const url = 'https://cheapest-gpt-4-turbo-gpt-4-vision-chatgpt-openai-ai-api.p.rapidapi.com/v1/chat/completions';
 
