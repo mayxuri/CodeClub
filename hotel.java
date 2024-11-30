@@ -159,9 +159,83 @@ class Domain extends SignUp {
         hotels.add(k3a);
         hotels.add(k3b);
 
-        // Repeat for Pune and Mumbai...
+          // pune
+        double[] cp5a = { 10000, 15000, 22000 };
+        int[] ap5a = { 12, 20, 10 };
+        Hotels p5a = new Hotels("pune", 5, "ritz carton", cp5a, ap5a);
 
-        // Add other hotel details for Pune and Mumbai...
+        double[] cp5b = { 9000, 13000, 20000 };
+        int[] ap5b = { 10, 15, 12 };
+        Hotels p5b = new Hotels("pune", 5, "jw marriot", cp5b, ap5b);
+
+        double[] cp4a = { 5000, 7000, 10000 };
+        int[] ap4a = { 14, 11, 9 };
+        Hotels p4a = new Hotels("pune", 4, "orchid", cp4a, ap4a);
+        double[] cp4b = { 5500, 6000, 9000 };
+
+        int[] ap4b = { 8, 20, 10 };
+        Hotels p4b = new Hotels("pune", 4, "lemon tree", cp4b, ap4b);
+        double[] cp3a = { 4000, 5000, 8000 };
+
+        int[] ap3a = { 12, 18, 5 };
+        Hotels p3a = new Hotels("pune", 3, "deccan pavillion", cp3a, ap3a);
+        double[] cp3b = { 3500, 5000, 7500 };
+
+        int[] ap3b = { 7, 20, 10 };
+        Hotels p3b = new Hotels("pune", 3, "phoenix", cp3b, ap3b);
+
+        hotels.add(p5a);
+        hotels.add(p5b);
+        hotels.add(p4a);
+        hotels.add(p4b);
+        hotels.add(p3a);
+        hotels.add(p3b);
+
+        // mumbai
+        double[] cm5a = { 22000, 27000, 34000 };
+        int[] am5a = { 4, 5, 2 };
+        Hotels m5a = new Hotels("mumbai", 5, "taj", cm5a, am5a);
+        double[] cm5b = { 20000, 25000, 30000 };
+        int[] am5b = { 5, 2, 4 };
+        Hotels m5b = new Hotels("mumbai", 5, "oberoi", cm5b, am5b);
+        double[] cm4a = { 17000, 21000, 24000 };
+        int[] am4a = { 3, 2, 4 };
+        Hotels m4a = new Hotels("mumbai", 4, "fern", cm4a, am4a);
+        double[] cm4b = { 16000, 18000, 21000 };
+        int[] am4b = { 4, 5, 3 };
+        Hotels m4b = new Hotels("mumbai", 4, "della", cm4b, am4b);
+        double[] cm3a = { 11000, 14000, 16000 };
+        int[] am3a = { 2, 4, 2 };
+        Hotels m3a = new Hotels("mumbai", 3, "ibis", cm3a, am3a);
+        double[] cm3b = { 10000, 13000, 15000 };
+        int[] am3b = { 5, 4, 7 };
+        Hotels m3b = new Hotels("mumbai", 3, "south coast", cm3b, am3b);
+
+        hotels.add(m5a);
+        hotels.add(m5b);
+        hotels.add(m4a);
+        hotels.add(m4b);
+        hotels.add(m3a);
+        hotels.add(m3b);
+
+    }
+
+}
+
+class Hotels {
+    String place;
+    int star;
+    String name;
+    String[] roomtype = { "single", "double", "suite" };
+    double[] cost = new double[3];
+    int[] availability = new int[3]; // Track availability
+
+    Hotels(String place, int star, String name, double[] cost, int[] availability) {
+        this.place = place;
+        this.star = star;
+        this.name = name;
+        this.cost = cost;
+        this.availability = availability;
     }
 }
 
